@@ -1,0 +1,8 @@
+.text-justify {
+  text-align: justify;
+}
+
+.img-card {
+  object-fit: contain;
+  width: 100%;
+}

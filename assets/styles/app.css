@@ -1,0 +1,11 @@
+@import './home.css';
+@import './listProduct.css';
+
+body {
+    background-color: lightgray;
+    padding-bottom: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
