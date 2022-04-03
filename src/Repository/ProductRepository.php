@@ -58,6 +58,32 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findAllAsc()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.name', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return Product[] Returns an array of Product objects
+     */
+    public function findByCategory(int $id)
+    {
+        return $this->createQueryBuilder('p')
+            ->join('p.category', 'c')
+            ->andWhere('c.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Product[] Returns an array of Product objects
     //  */
