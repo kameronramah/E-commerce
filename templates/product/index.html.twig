@@ -6,4 +6,24 @@
 
     {{ include('partials/_navbar.html.twig') }}
 
+    <h2 class="text-center">Tous les produits</h2>
+
+    {% for product in products %}
+        <div class="container w-75 product-card">
+            <div class="row h-100">
+                <div class="col-md-2 h-100 img-product-card">
+                    <img src="{{ asset('/img/'~ product.image) }}" class="img-product">
+                </div>
+                <div class="col-md-8 h-100">
+                    <h3>{{product.name}}</h3>
+                    <p>{{product.description|u.truncate(300, '...') }}</p>
+                </div>
+                <div class="col-md-2 h-100 d-flex align-items-end flex-column">
+                    <h4>{{product.price}}€</h4>
+                    <a href="{{ path('app_product_unitary', {'id': product.id }) }}" type="button" class="btn btn-primary btn-product">Voir le produit</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
 {% endblock %}

@@ -1,9 +1,14 @@
 @import './home.css';
-@import './listProduct.css';
 @import './security/inscription.css';
+@import './products.css';
+@import './basket.css';
+
 body {
+    background-color: #eee;
+}
+
+footer {
     background-color: lightgray;
-    padding-bottom: 20px;
 }
 
 .navbar {
