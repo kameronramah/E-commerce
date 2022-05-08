@@ -10,3 +10,13 @@
 .extend {
   width: 5rem;
 }
+
+.btn-outline-secondary {
+  color: grey;
+  border-color: grey;
+}
+
+.btn-outline-secondary:hover {
+  color: grey;
+  border-color: grey;
+}

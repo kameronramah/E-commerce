@@ -23,7 +23,7 @@ $('.removeItem').on('click', (e) => {
             $('.basket-status').append('<h2 class="text-center text-danger">Votre panier est vide !</h2>');
         }
         else {
-            $('.total-basket').text('Total : ' + total + '€');
+            $('.total-basket').text('Total : ' + Math.round(total*100) / 100 + '€');
         }
     });
 })

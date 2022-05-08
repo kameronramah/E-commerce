@@ -58,6 +58,11 @@ class ProductRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllOrderId()
+    {
+        return $this->findBy(array(), array('id' => 'ASC'));
+    }
+
     /**
      * @return Product[] Returns an array of Product objects
      */

@@ -24,6 +24,13 @@ Encore
     .addEntry('addToBasket', './assets/js/addToBasket.js')
     .addEntry('modifyBasketQuantity', './assets/js/modifyBasketQuantity.js')
     .addEntry('removeToBasket', './assets/js/removeToBasket.js')
+    .addEntry('payment', './assets/js/payment.js')
+    .addEntry('changeOrderStatus', './assets/js/changeOrderStatus.js')
+    .addEntry('multiSelect', './assets/js/multiSelect.js')
+    .addEntry('editCategories', './assets/js/editCategories.js')
+    .addEntry('removeProduct', './assets/js/removeProduct.js')
+
+
 
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)

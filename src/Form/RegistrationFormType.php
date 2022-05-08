@@ -28,45 +28,50 @@ class RegistrationFormType extends AbstractType
 
             ->add('name', TextType::class,[
                 'attr' => [
-                    'placeholder' => 'Votre prénom...',
-                    'class' => 'form-control'
-                ],
-                'label' => false
+                    'class' => 'form-control',
+                    'name' => 'name'
+                ]
             ])
             ->add('lastName', TextType::class,[
                 'attr' => [
-                    'placeholder' => 'Votre nom...',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'name' => 'lastname'
                 ],
                 'label'=> false
             ])
-            ->add('street',TextareaType::class,[
+            ->add('street',TextType::class,[
                 'attr' => [
-                    'placeholder' => 'Votre adresse...',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'name' => 'street'
                 ],
                 'label'=> false
             ])
             ->add('postalCode', IntegerType::class,[
                 'attr' => [
-                    'placeholder' => 'Votre code postal...',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'name' => 'postalcode'
                 ],
                 'label'=> false
            ])
-            ->add('city', TextareaType::class,[
+            ->add('city', TextType::class,[
                 'attr' => [
-                    'placeholder' => 'Votre ville...',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'name' => 'city'
                 ],
                 'label'=> false
            ])
-
+           ->add('creditCard', IntegerType::class,[
+                'attr' => [
+                    'class' => 'form-control',
+                    'name' => 'creditcard'
+                ],
+                'label'=> false
+            ]) 
 
             ->add('email',  EmailType::class,[
                 'attr' => [
-                    'placeholder' => 'Votre email...',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'name' => 'email'
                 ],
                 'label'=> false
            ])
@@ -78,32 +83,41 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Vous devez accepter nos conditions.',
                     ]),
                 ],
-                'label'=>'Accepter nos conditions'
+                'label'=>'Accepter nos conditions',
+                'attr' => [
+                    'name' => 'agreeterms'
+                ]
             ])
 
             ->add('plainPassword', RepeatedType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'type' => PasswordType::class,
-                'invalid_message' => 'The password fields must match.',
-                'options' => ['attr' => [
-                    'class' => 'password-field'
-                    ]],
-                'required' => true,
-                'first_options'  => ['attr' => [
-                    'placeholder' => 'Votre mot de passe...',
-                    'class' => 'form-control'
+                'first_name' => 'password',
+                'second_name' => 'secondpassword',
+                'invalid_message' => 'Les mots de passes doivent correspondre.',
+                'options' => [
+                    'attr' => [
+                        'class' => 'password-field'
+                    ]
                 ],
+                'required' => true,
+                'first_options'  => [
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
                     'label' => false
                 ],
-                'second_options' => ['attr' => [
-                    'placeholder' => 'Confirmer votre mot de passe...',
-                    'class' => 'form-control'
-                ],
+                'second_options' => [
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
                     'label' => false
                 ],
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => [
+                    'autocomplete' => 'new-password'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir votre mot de passe',

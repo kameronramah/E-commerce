@@ -2,15 +2,54 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Basket;
 use App\Entity\Category;
 use App\Entity\Product;
+use App\Entity\Status;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+
+        $basketAdmin = new Basket();
+        $basketAdmin->setContent([]);
+
+        $passwordHasher = new UserPasswordHasherInterface();
+
+        $userAdmin = new User();
+
+        $plainPassword = 'adminPass';
+        $encoded = $passwordHasher->hashPassword($userAdmin, $plainPassword);
+
+        $userAdmin->setEmail('admin@admin.com');
+        $userAdmin->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $userAdmin->setPassword($encoded);
+        $userAdmin->setName('Admin');
+        $userAdmin->setLastName('Admin');
+        $userAdmin->setStreet('10 rue de l\'admin');
+        $userAdmin->setCity('Adminville');
+        $userAdmin->setPostalCode('75000');
+        $userAdmin->setBasket($basketAdmin);
+
+        $manager->persist($userAdmin);
+
+        $status1 = new Status();
+        $status2 = new Status();
+        $status3 = new Status();
+
+        $status1->setName('En attente d\'expédition');
+        $status2->setName('En cours de livraison');
+        $status3->setName('Livrée');
+
+        $manager->persist($status1);
+        $manager->persist($status2);
+        $manager->persist($status3);
+        
         $lifeStyle = new Category();
         $running = new Category();
         $basketball = new Category();
@@ -36,14 +75,14 @@ class AppFixtures extends Fixture
 
         $lifeStyle2->setQuantityProduct(100);
         $lifeStyle2->setPrice(119.99);
-        $lifeStyle2->setImage('huarache.png');
+        $lifeStyle2->setImage('huarache.jpg');
         $lifeStyle2->setName('Nike Air Huarache');
         $lifeStyle2->setDescription('Conçue pour s\'adapter à votre pied et assurer un confort optimal, la Nike Air Huarache signe le retour d\'un incontournable du style urbain.Les détails en cuir souple sur l\'empeigne sont associés à un tissu de type néoprène parfaitement brillant et ultra-respirant pour un style polyvalent.Le col bas et la conception de type chausson assurent élégance et confort.Le clip emblématique au talon et le logo épuré conservent le look du début des années 90 que vous aimez tant.');
         $lifeStyle2->addCategory($lifeStyle);
 
         $lifeStyle3->setQuantityProduct(100);
         $lifeStyle3->setPrice(109.99);
-        $lifeStyle3->setImage('air_force.png');
+        $lifeStyle3->setImage('air_force.jpg');
         $lifeStyle3->setName('Nike Air Force 1 \'07');
         $lifeStyle3->setDescription('Le charme continue d\'opérer avec la Nike Air Force 1 ’07. Cette silhouette emblématique du basketball revisite ses éléments les plus célèbres : les renforts cousus résistants, les finitions sobres et juste ce qu\'il faut d\'éclat pour briller sur le terrain.');
         $lifeStyle3->addCategory($lifeStyle);
@@ -58,14 +97,14 @@ class AppFixtures extends Fixture
 
         $running1->setQuantityProduct(100);
         $running1->setPrice(119.99);
-        $running1->setImage('pegasus_38.jpg');
+        $running1->setImage('pegasus_38.jpeg');
         $running1->setName('Nike Air Zoom Pegasus 38');
         $running1->setDescription('La route est votre terrain de jeu. Préparez-vous à prendre votre envol avec la chaussure ailée ultra-performante. De retour avec un rebond parfait pour fouler le bitume. Que vous fassiez votre run quotidien ou vous prépariez pour un run plus long, ressentez le rebond à chaque foulée avec le même amorti que le modèle précédent. L\'empeigne en mesh respirant vous offre le confort et la résistance dont vous avez besoin, avec une coupe plus large au niveau des orteils.');
         $running1->addCategory($running);
 
         $running2->setQuantityProduct(100);
         $running2->setPrice(64.99);
-        $running2->setImage('flex_experience_run_10.jpg');
+        $running2->setImage('flex_experience_run_10.png');
         $running2->setName('Nike Flex Experience Run 10');
         $running2->setDescription('Simple et polyvalente, la Nike Flex Experience Run 10 est conçue pour bouger.Conçue pour les coureurs occasionnels, sa coupe sécurisée et son amorti léger au niveau du talon vous permettent d\'avaler les kilomètres.De plus, l\'empeigne simple revisitée s\'associe à merveille à une tenue décontractée pour vous offrir un confort optimal tout au long de la journée.');
         $running2->addCategory($running);

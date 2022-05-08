@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle catégorie{% endblock %}
+
+{% block body %}
+
+    {{ include('partials/_navbar.html.twig') }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h2 class="text-center mb-5">Nouvelle catégorie</h2>
+    
+    <div class="d-flex justify-content-center">
+        {{ form_start(form) }}
+
+            {{ form_row(form.name) }}
+
+            <button type="submit" class="btn btn-primary w-100">Créer</button>
+
+        {{ form_end(form) }}
+    </div>
+    
+
+{% endblock %}

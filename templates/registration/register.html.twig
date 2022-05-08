@@ -1,10 +1,106 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <div class="register">
-        <div class="card">
+    <section class="text-center text-lg-start">
+        <div class="container py-4">
+            <div class="row g-0 align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card cascading-right" style="
+                    background: hsla(0, 0%, 100%, 0.55);
+                    backdrop-filter: blur(30px);
+                    ">
+                        <div class="card-body p-5 shadow-5 text-center">
+                            <h2 class="fw-bold mb-5">Créez votre compte</h2>
+                            
+                            {{ form_start(registrationForm) }}      
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            {{ form_widget(registrationForm.name)  }}
+                                            <label class="form-label" for="name">Prénom</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            {{ form_widget(registrationForm.lastName) }}
+                                            <label class="form-label" for="lastname">Nom de famille</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    {{ form_widget(registrationForm.email) }}
+                                    <label class="form-label" for="email">Adresse email</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            {{ form_widget(registrationForm.plainPassword.password)  }}
+                                            <label class="form-label" for="password">Mot de passe</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            {{ form_widget(registrationForm.plainPassword.secondpassword) }}
+                                            <label class="form-label" for="secondpassword">Confirmer mot de passe</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    {{ form_widget(registrationForm.street) }}
+                                    <label class="form-label" for="street">Rue</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            {{ form_widget(registrationForm.postalCode) }}
+                                            <label class="form-label" for="postalcode">Code postal</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="form-outline">
+                                            {{ form_widget(registrationForm.city) }}
+                                            <label class="form-label" for="city">Ville</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    {{ form_widget(registrationForm.creditCard) }}
+                                    <label class="form-label" for="creditcard">Carte de crédit</label>
+                                </div>
+
+                                {{ form_row(registrationForm.agreeTerms) }}
+                                
+                                {{ form_row(registrationForm._token) }}
+
+                                <!-- Submit button -->
+                                <button class="btn btn-primary btn-block mb-4">
+                                    S'INSCRIRE
+                                </button>
+
+                                <!-- Register buttons -->
+                                <div class="text-center">
+                                    <p>Déjà inscrit? <a href="{{ path('app_login') }}">Connectez-vous</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <img src="{{ asset('/img/login_img.jpg') }}" style="width: 85%" class="rounded-4 shadow-4"
+                    alt="" />
+                </div>
+            </div>
+        </div>
+    </section>
+    {# <div class="register">
+        <div class="card card-inscription">
             <div class="text-center">
                 <h3>Créer votre compte</h3> <span class="abt">Si vous avez déjà votre compte, <a href="{{path('app_login')}}">Connectez-vous</a></span>
             </div>
@@ -47,6 +143,6 @@
                 
             {{ form_end(registrationForm) }}
         </div>
-    </div>
+    </div> #}
         
 {% endblock %}

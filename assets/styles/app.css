@@ -2,6 +2,12 @@
 @import './security/inscription.css';
 @import './products.css';
 @import './basket.css';
+@import './order.css';
+@import './category.css';
+@import './security/loginRegister.css';
+@import 'select2/dist/css/select2';
+@import 'select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme'; 
+@import 'mdb-ui-kit/css/mdb.min.css';
 
 body {
     background-color: #eee;
@@ -13,4 +19,17 @@ footer {
 
 .navbar {
     margin-bottom: 20px;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.user-icon {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.dropdown-item {
+    cursor: pointer;
 }

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les produits{% endblock %}
+
+{% block body %}
+
+    {{ include('partials/_navbar.html.twig') }}
+
+    <h2 class="text-center mb-5">Gérer les produits</h2>
+    
+    <div class="container table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Produit</th>
+                    <th style="width: 25%" scope="col">Image</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Catégories</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Editer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr id="product-{{ product.id }}">
+                        <td>{{product.id}}</td>
+                        <td><img src="{{ asset('/img/'~ product.image) }}" class="img-product img-management"></td>
+                        <td>{{product.name}}</td>
+                        <td>
+                            {% for category in product.category %}
+                                {{ category.name}}{% if loop.index != product.category|length %},{% endif %}
+                                
+                            {% endfor %}
+                        </td>
+                        <td>{{product.price}}€</td>
+                        <td>{{product.quantityProduct}}</td>
+                        <td>
+                            <a href={{ path('app_product_management_unitary', {id : product.id})}} class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <button type="submit" class="btn btn-danger remove-btn" data-url="{{ path('app_product_management_remove', {id: product.id }) }}" data-id={{ product.id }}><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    
+    {{ encore_entry_script_tags('removeProduct' )}}
+
+{% endblock %}

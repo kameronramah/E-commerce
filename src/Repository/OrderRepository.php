@@ -45,6 +45,11 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('createdAt' => 'DESC'));
+    }
+
     // /**
     //  * @return Order[] Returns an array of Order objects
     //  */

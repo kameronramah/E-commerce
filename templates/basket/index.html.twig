@@ -62,7 +62,7 @@
                     {% if panier|length > 0 %}
                         <div class="card card-btn-pay">
                             <div class="card-body">
-                                <button type="button" class="btn btn-warning btn-block btn-lg btn-pay">PAYER</button>
+                                <button data-url={{ path('app_orderCreate')}} class="btn btn-warning btn-block btn-lg btn-pay">PAYER</button>
                             </div>
                         </div>
                     {% else %}
@@ -73,6 +73,34 @@
         </div>
     </section>
 
+    <div class="modal fade" id="modalOrder" tabindex="-1" aria-labelledby="modalOrderLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalOrderLabel">Commande passée ! <i class="fa-solid fa-circle-check"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Votre commande a bien été prise en compte. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalNoOrder" tabindex="-1" aria-labelledby="modalNoOrderLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNoOrderLabel">Commande impossible <i class="fa-solid fa-circle-xmark"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Votre commande n'a pas pu aboutir pour cause de limite de stock sur un ou plusieurs produit(s) de votre panier. 
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 
@@ -80,5 +108,6 @@
 
     {{ encore_entry_script_tags('modifyBasketQuantity') }}
     {{ encore_entry_script_tags('removeToBasket') }}
+    {{ encore_entry_script_tags('payment') }}
 
 {% endblock %}

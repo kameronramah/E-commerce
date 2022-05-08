@@ -10,7 +10,7 @@
       <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
           <h1 class="fw-light">Plus que des chaussures</h1>
-          <p class="lead text-muted">Nos chaussures sont conçus de manière à s'adapter parfaitement à n'importe quel type de pied, elles disposent d'une ergonomie époustouflante tout en gardant un confort exceptionnel.</p>
+          <p class="lead text-muted">Nos chaussures sont conçues de manière à s'adapter parfaitement à n'importe quel type de pied, elles disposent d'une ergonomie époustouflante tout en gardant un confort exceptionnel.</p>
           <p>
             <a href="{{ path('app_product')}}" class="btn btn-primary my-2">Voir nos produits</a>
           </p>
@@ -33,7 +33,7 @@
                               <div class="btn-group">
                                 <a href="{{ path('app_product_unitary', {'id': product.id }) }}" class="btn btn-sm btn-outline-secondary {% if not is_granted('ROLE_ADMIN') %} extend{% endif %}">Voir</a>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                  <button type="button" class="btn btn-sm btn-outline-secondary">Modifier</button>
+                                  <a href="{{ path('app_product_management_unitary', {'id': product.id }) }}" class="btn btn-sm btn-outline-secondary">Modifier</a>
                                 {% endif %}
                               </div>
                               <h5> {{ product.price }}€</h5>

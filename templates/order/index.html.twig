@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les commandes{% endblock %}
+
+{% block body %}
+
+    {{ include('partials/_navbar.html.twig') }}
+
+    <h2 class="text-center mb-5">Gérer les commandes</h2>
+    
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Commande</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Numéro de client</th>
+                    <th scope="col">Nom Prénom</th>
+                    <th scope="col">Contenu</th>
+                    <th scope="col">Statut</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{order.id}}</td>
+                        <td>{{order.createdAt |date('d/m/Y')}} </td>
+                        <td>{{order.client.id}}</td>
+                        <td>{{order.client.lastName}} {{order.client.name}}</td>
+                        <td>
+                            <ul>
+                                {% for item in order.content %}
+                                    <li><b> ID du produit : </b>{{item.id}}</li>
+                                    <ul>
+                                        <li><b>Nom du produit : </b>{{item.name}}</li>
+                                        <li><b>Taille : </b>{{item.size}}</li>
+                                        <li><b>Quantité : </b>{{item.quantity}}</li>
+                                    </ul>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select class="form-control order-status" data-url={{ path('app_order_ajaxChangeStatus', {id : order.id})}}>
+                                    {% for status in allStatus %}
+                                        <option value={{status.id}} {% if order.status.id == status.id %}selected{% endif %}>{{status.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    
+    {{ encore_entry_script_tags('changeOrderStatus') }}
+
+{% endblock %}

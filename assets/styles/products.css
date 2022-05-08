@@ -24,6 +24,13 @@
     margin-top: 3rem;
 }
 
+.margin-btn {
+    margin-top: 0rem;
+}
+
+.min-margin {
+    margin-top: 1rem;
+}
 
 .card {
     border: none
@@ -103,4 +110,24 @@ i.fa-solid.fa-circle-check {
 
 i.fa-solid.fa-circle-xmark {
     color: red;
+}
+
+.no-resize {
+    height: 100px;
+    resize: none;
+}
+
+.select2-selection--multiple:before {
+    content: "";
+    position: absolute;
+    right: 7px;
+    top: 42%;
+    border-top: 5px solid #888;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.img-management {
+    width: 20%;
+    height: 20%;
 }

@@ -19,9 +19,6 @@ class Basket
     #[ORM\OneToOne(inversedBy: 'basket', targetEntity: User::class, cascade: ['persist', 'remove'])]
     private $utilisateur;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
-    private $sessionId;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -51,15 +48,4 @@ class Basket
         return $this;
     }
 
-    public function getSessionId(): ?string
-    {
-        return $this->sessionId;
-    }
-
-    public function setSessionId(?string $sessionId): self
-    {
-        $this->sessionId = $sessionId;
-
-        return $this;
-    }
 }
