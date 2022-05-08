@@ -1,0 +1,9 @@
+.form-control:disabled {
+    background-color: transparent;
+    text-align: center;
+}
+
+.btn-pay {
+    width: 100%;
+    color: white;
+}

@@ -1,0 +1,91 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block body %}
+
+    {{ include('partials/_navbar.html.twig') }}
+
+    <div class="container mt-5 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="images p-3 h-100">
+                                <div class="p-4 h-100"> 
+                                    <img src="{{ asset('/img/'~ product.image) }}" class="img-product"/> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="product p-4 h-100">
+                                <div class="mt-4 mb-3">
+                                    <h2 class="text-uppercase">{{ product.name }}</h2>
+                                    <div class="price d-flex flex-row align-items-center"> 
+                                        <h3 class="act-price"> {{ product.price }}€</h3>
+                                    </div>
+                                </div>
+                                <p class="about text-justify">{{ product.description }}</p>
+                                {% if product.quantityProduct <= 5 and product.quantityProduct > 0 %}
+                                    <h6 class="text-danger">Plus que {{ product.quantityProduct }} en stock !</h6>
+                                {% endif %}
+                                {% if product.quantityProduct == 0 %}
+                                    <h6 class="text-danger"> Rupture de stock !</h6>
+                                {% endif %}
+                                <div class="sizes mt-5">
+                                    <h6 class="text-uppercase">Taille</h6> 
+                                    <label class="radio"> <input type="radio" name="size" value="38" checked> <span>38</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="39"> <span>39</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="40"> <span>40</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="41"> <span>41</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="42"> <span>42</span> </label> 
+                                    <label class="radio"> <input type="radio" name="size" value="43"> <span>43</span> </label>
+                                </div>
+                                <div class="cart mt-4 align-items-center"> 
+                                    <button class="addToBasket btn {% if product.quantityProduct == 0 %} btn-secondary  {% else %} btn-danger {% endif %}  text-uppercase mr-2 px-4" data-id="{{ product.id }}" data-url="{{ path('ajaxAdd_basket') }}" {% if product.quantityProduct == 0 %}disabled{% endif %}
+                                    >Ajouter au panier</button> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalInsert" tabindex="-1" aria-labelledby="modalInsertLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalInsertLabel">Article ajouté au panier <i class="fa-solid fa-circle-check"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Votre article a bien été ajouté à votre panier. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalNoInsert" tabindex="-1" aria-labelledby="modalNoInsertLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNoInsertLabel">Article non ajouté au panier <i class="fa-solid fa-circle-xmark"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Pour cause de limite de stock votre article n'a pas pu être ajouté à votre panier. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ encore_entry_script_tags('addToBasket') }}
+
+{% endblock %}

@@ -1,7 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello BasketController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
+
+    {% set total = 0 %}
+    {% for item in panier %}
+        {% set total = total + item.price %}
+    {% endfor %}
     {{ include('partials/_navbar.html.twig') }}
+
+    <section class="h-100">
+        <div class="container h-100 py-5">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-10 basket-status">
+
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h3 class="fw-normal mb-0 text-black">Mon panier</h3>
+                        {% if panier|length > 0 %}<b><h3 class="total-basket mb-0 text-black">Total : {{ total }}€</h3></b>{% endif %}
+                    </div>
+
+                    <div class="basket">
+                        {% for item in panier %}
+                            <div id="card{{ item.id }}-{{ item.size }}" class="card rounded-3 mb-4">
+                                <div class="card-body p-4">
+                                    <div class="row d-flex justify-content-between align-items-center">
+                                        <div class="col-md-2 col-lg-2 col-xl-2">
+                                            <img src={{ asset('/img/'~ item.image) }}
+                                            class="img-fluid img-product rounded-3" alt="Cotton T-shirt">
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-3">
+                                            <p class="lead fw-normal mb-2">{{item.name}}</p>
+                                            <p><span class="text-muted">Taille: </span>{{ item.size }}</p>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                            <button class="btn btn-link px-2 buttonModifyQuantityDown"
+                                            data-url={{ path('ajaxModifyQuantity_basket', { id: item.id, size : item.size, change : -1}) }}>
+                                            <i class="fas fa-minus"></i>
+                                            </button>
+
+                                            <input id="quantity{{ item.id }}-{{ item.size }}" min="1" max={{ item.maxQuantity }} name="quantity" value={{ item.quantity }} type="number"
+                                            class="form-control form-control-sm disabled" disabled/>
+
+                                            <button class="btn btn-link px-2 buttonModifyQuantityUp"
+                                            data-url={{ path('ajaxModifyQuantity_basket', { id: item.id, size : item.size, change : 1}) }}>
+                                            <i class="fas fa-plus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                            <h5 id="price{{ item.id }}-{{ item.size }}" class="mb-0">{{ item.price }}€</h5>
+                                        </div>
+                                        <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                            <button class="btn text-danger removeItem" data-url={{ path('ajaxRemove_basket', { id: item.id, size : item.size }) }}><i class="fas fa-trash fa-lg"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}   
+                    </div> 
+
+                    {% if panier|length > 0 %}
+                        <div class="card card-btn-pay">
+                            <div class="card-body">
+                                <button data-url={{ path('app_orderCreate')}} class="btn btn-warning btn-block btn-lg btn-pay">PAYER</button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <h2 class="text-center text-danger">Votre panier est vide !</h2>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="modalOrder" tabindex="-1" aria-labelledby="modalOrderLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalOrderLabel">Commande passée ! <i class="fa-solid fa-circle-check"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Votre commande a bien été prise en compte. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalNoOrder" tabindex="-1" aria-labelledby="modalNoOrderLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalNoOrderLabel">Commande impossible <i class="fa-solid fa-circle-xmark"></i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Votre commande n'a pas pu aboutir pour cause de limite de stock sur un ou plusieurs produit(s) de votre panier. 
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {{ encore_entry_script_tags('modifyBasketQuantity') }}
+    {{ encore_entry_script_tags('removeToBasket') }}
+    {{ encore_entry_script_tags('payment') }}
+
 {% endblock %}

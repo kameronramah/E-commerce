@@ -6,11 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -42,14 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'integer')]
     private $postalCode;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer')]
     private $creditCard;
-
-    #[ORM\Column(type: 'json', nullable: true)]
-    private $basket = [];
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Order::class)]
     private $orders;
+
+    #[ORM\OneToOne(mappedBy: 'utilisateur', targetEntity: Basket::class, cascade: ['persist', 'remove'])]
+    private $basket;
 
     public function __construct()
     {
@@ -198,18 +200,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getBasket(): ?array
-    {
-        return $this->basket;
-    }
-
-    public function setBasket(?array $basket): self
-    {
-        $this->basket = $basket;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Order>
      */
@@ -236,6 +226,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $order->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBasket(): ?Basket
+    {
+        return $this->basket;
+    }
+
+    public function setBasket(?Basket $basket): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($basket === null && $this->basket !== null) {
+            $this->basket->setUtilisateur(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($basket !== null && $basket->getUtilisateur() !== $this) {
+            $basket->setUtilisateur($this);
+        }
+
+        $this->basket = $basket;
 
         return $this;
     }

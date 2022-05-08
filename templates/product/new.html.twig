@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau produit{% endblock %}
+
+{% block body %}
+
+    {{ include('partials/_navbar.html.twig') }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h2 class="text-center mb-5">Nouveau produit</h2>
+    
+    <div class="d-flex justify-content-center">
+        {{ form_start(form) }}
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.quantityProduct) }}
+                    {{ form_row(form.description) }}
+                </div>
+                <div class="col-md-6">
+                    {{ form_row(form.price) }}
+                    {{ form_row(form.category) }}
+                    {{ form_row(form.image) }}
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Créer</button>
+
+        {{ form_end(form) }}
+    </div>
+   
+
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ encore_entry_script_tags('multiSelect') }}
+
+{% endblock %}

@@ -45,6 +45,16 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('name' => 'ASC'));
+    }
+
+    public function findAllOrderId()
+    {
+        return $this->findBy(array(), array('id' => 'ASC'));
+    }
+
     // /**
     //  * @return Category[] Returns an array of Category objects
     //  */

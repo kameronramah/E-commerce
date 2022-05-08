@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les catégories{% endblock %}
+
+{% block body %}
+
+    {{ include('partials/_navbar.html.twig') }}
+
+    <h2 class="text-center mb-5">Gérer les catégories</h2>
+    
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Catégorie</th>
+                    <th scope="col">Nom</th>
+                    <th scope="col">Editer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categoriesOrderId %}
+                    <tr id="category-{{ category.id}}">
+                        <td>{{category.id}}</td>
+                        <td><input type="text" disabled="disabled" value={{category.name}} class="edit-{{category.id}}"> </td>
+                        <td>
+                            <button type="submit" id="edit-btn-{{category.id}}" class="btn btn-primary edit-btn" data-id={{ category.id }}><i class="fas fa-edit"></i></button>
+                            <button type="submit" id="valid-edit-btn-{{category.id}}" class="btn btn-success valid-edit-btn" data-url="{{ path('app_category_ajaxEditCategory', {id : category.id}) }}" data-id={{ category.id }}><i class="fa-solid fa-check"></i></button>
+                            <button type="submit" class="btn btn-danger remove-btn" data-url="{{ path('app_category_ajaxRemoveCategory', {id : category.id}) }}" data-id={{ category.id }}><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    
+    {{ encore_entry_script_tags('editCategories') }}
+
+{% endblock %}

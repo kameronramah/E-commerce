@@ -1,0 +1,133 @@
+.product-card {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border: 1px solid grey;
+    height: 175px;
+    border-radius: 20px;
+    background-color: #FEFEFE;
+    margin-bottom: 1rem;
+}
+
+.img-product-card {
+    overflow: hidden;
+}
+
+.img-product {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+  
+.btn-product {
+    margin-top: 3rem;
+}
+
+.margin-btn {
+    margin-top: 0rem;
+}
+
+.min-margin {
+    margin-top: 1rem;
+}
+
+.card {
+    border: none
+}
+
+.product {
+    background-color: #eee
+}
+
+.brand {
+    font-size: 13px
+}
+
+.act-price {
+    color: red;
+    font-weight: 700
+}
+
+.dis-price {
+    text-decoration: line-through
+}
+
+.about {
+    font-size: 14px
+}
+
+.color {
+    margin-bottom: 10px
+}
+
+label.radio {
+    cursor: pointer
+}
+
+label.radio input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    pointer-events: none
+}
+
+label.radio span {
+    padding: 2px 9px;
+    border: 2px solid #ff0000;
+    display: inline-block;
+    color: #ff0000;
+    border-radius: 3px;
+    text-transform: uppercase
+}
+
+label.radio input:checked+span {
+    border-color: #ff0000;
+    background-color: #ff0000;
+    color: #fff
+}
+
+.btn-danger {
+    background-color: #ff0000 !important;
+    border-color: #ff0000 !important
+}
+.btn-danger:focus {
+    box-shadow: none
+}
+
+.cart i {
+    margin-right: 10px
+}
+.btn-danger:hover {
+    background-color: #da0606 !important;
+    border-color: #da0606 !important
+}
+
+i.fa-solid.fa-circle-check {
+    color: green;
+}
+
+i.fa-solid.fa-circle-xmark {
+    color: red;
+}
+
+.no-resize {
+    height: 100px;
+    resize: none;
+}
+
+.select2-selection--multiple:before {
+    content: "";
+    position: absolute;
+    right: 7px;
+    top: 42%;
+    border-top: 5px solid #888;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+
+.img-management {
+    width: 20%;
+    height: 20%;
+}

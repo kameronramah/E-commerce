@@ -10,3 +10,11 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+const $ = require('jquery');
+
+import * as mdb from 'mdb-ui-kit'; // lib
+import { Input } from 'mdb-ui-kit';
+
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');
