@@ -131,3 +131,7 @@ i.fa-solid.fa-circle-xmark {
     width: 20%;
     height: 20%;
 }
+
+.btn-secondary:disabled {
+    background-color: grey;
+}
