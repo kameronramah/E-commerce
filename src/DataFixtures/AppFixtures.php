@@ -13,28 +13,35 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $userPasswordHasherInterface;
+
+    public function __construct (UserPasswordHasherInterface $userPasswordHasherInterface) 
+    {
+        $this->userPasswordHasherInterface = $userPasswordHasherInterface;
+    }
+
     public function load(ObjectManager $manager): void
     {
 
         $basketAdmin = new Basket();
         $basketAdmin->setContent([]);
 
-        $passwordHasher = new UserPasswordHasherInterface();
-
         $userAdmin = new User();
-
-        $plainPassword = 'adminPass';
-        $encoded = $passwordHasher->hashPassword($userAdmin, $plainPassword);
 
         $userAdmin->setEmail('admin@admin.com');
         $userAdmin->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
-        $userAdmin->setPassword($encoded);
+        $userAdmin->setPassword(
+            $this->userPasswordHasherInterface->hashPassword(
+                $userAdmin, "adminPass"
+            )
+        );
         $userAdmin->setName('Admin');
         $userAdmin->setLastName('Admin');
         $userAdmin->setStreet('10 rue de l\'admin');
         $userAdmin->setCity('Adminville');
-        $userAdmin->setPostalCode('75000');
+        $userAdmin->setPostalCode(75000);
         $userAdmin->setBasket($basketAdmin);
+        $userAdmin->setCreditCard(00000000);
 
         $manager->persist($userAdmin);
 
@@ -133,7 +140,7 @@ class AppFixtures extends Fixture
 
         $basketball2->setQuantityProduct(100);
         $basketball2->setPrice(179.99);
-        $basketball2->setImage('kd_14.jpg');
+        $basketball2->setImage('kd_14.png');
         $basketball2->setName('KD14 By You');
         $basketball2->setDescription('La KD14 By You est conçue pour vous aider à rester au frais, polyvalent et implacable, tout comme KD.Perfectionnez votre look avec des coloris unis ou bicolores, des détails éclatants comme les Swoosh chromés et un strap irisé, sans oublier le plus grand espace pour votre message personnel jamais créé par Nike. .');
         $basketball2->addCategory($basketball);
