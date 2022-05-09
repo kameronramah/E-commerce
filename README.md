@@ -36,7 +36,7 @@ Pour pouvoir utiliser le site voici les étapes à suivre :
 
 1. Cloner le repo
    ```sh
-   git clone https://github.com/your_username_/Project-Name.git
+   git clone https://github.com/kameronramah/E-commerce.git
    ```
 2. Créer un fichier .env à la racine du projet et le remplir sur l'exemple du .env.sample
 
