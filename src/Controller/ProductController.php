@@ -166,9 +166,13 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
+        $fileSystem = new Filesystem();
+
         $product = $productRepository->findOneById($id);
+
         $entityManagerInterface->remove($product);
         $entityManagerInterface->flush();
+        $fileSystem->remove($this->getParameter('products_images') . '/' . $product->getImage());
 
         return new Response(
             'Suppression effectuée', 
